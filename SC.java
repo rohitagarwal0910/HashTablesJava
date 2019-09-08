@@ -1,49 +1,49 @@
-public class SC<K, T> implements MyHashTable_<K, T> {
+public class SC<K extends Comparable<K>, T> implements MyHashTable_<K, T> {
     int t;
-    BST<T> list[];
+    BST<K, T> list[];
 
     SC(int t) {
         this.t = t;
         list = new BST[t];
         for (int i = 0; i < t; i++) {
-            list[i] = new BST();
+            list[i] = new BST<K, T>();
         }
     }
 
     @Override
     public int insert(K key, T obj) {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
-        return list[index].add(obj);
+
+        int index = (int) Hash.djb2(key.toString(), t);
+        return list[index].add(key, obj);
     }
 
     @Override
     public int update(K key, T obj) {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
-        return list[index].update(obj, p);
+
+        int index = (int) Hash.djb2(key.toString(), t);
+        return list[index].update(key, obj);
     }
 
     @Override
     public int delete(K key) {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
-        return list[index].delete(p);
+
+        int index = (int) Hash.djb2(key.toString(), t);
+        return list[index].delete(key);
     }
 
     @Override
     public boolean contains(K key) {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
-        return list[index].contains(p);
+
+        int index = (int) Hash.djb2(key.toString(), t);
+        return list[index].contains(key);
     }
 
     @Override
     public T get(K key) throws NotFoundException {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
+
+        int index = (int) Hash.djb2(key.toString(), t);
         try {
-            return list[index].get(p);
+            return list[index].get(key);
         } catch (NotFoundException e) {
             throw e;
         }
@@ -51,10 +51,10 @@ public class SC<K, T> implements MyHashTable_<K, T> {
 
     @Override
     public String address(K key) throws NotFoundException {
-        Pair<String, String> p = (Pair<String, String>) key;
-        int index = (int) Hash.djb2(p.first + p.second, t);
+
+        int index = (int) Hash.djb2(key.toString(), t);
         try {
-            return Integer.toString(index) + "-" + list[index].address(p);
+            return Integer.toString(index) + "-" + list[index].address(key);
         } catch (NotFoundException e) {
             throw e;
         }

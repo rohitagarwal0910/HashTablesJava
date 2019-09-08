@@ -36,16 +36,19 @@ public class assignment3 {
             String hostel = s[3];
             String dept = s[4];
             String cgpa = s[5];
-            System.out.println(table.insert(p, new Student(fname, lname, hostel, dept, cgpa)));
+            int r = table.insert(p, new Student(fname, lname, hostel, dept, cgpa));
+            System.out.println(r);
         } else if (s[0].equals("update")) {
             String hostel = s[3];
             String dept = s[4];
             String cgpa = s[5];
-            System.out.println(table.update(p, new Student(fname, lname, hostel, dept, cgpa)));
+            int r = table.update(p, new Student(fname, lname, hostel, dept, cgpa));
+            System.out.println((r == -1) ? "E" : r);
         } else if (s[0].equals("delete")) {
-            System.out.println(table.delete(p));
+            int r = table.delete(p);
+            System.out.println((r == -1) ? "E" : r);
         } else if (s[0].equals("contains")) {
-            System.out.println(table.contains(p)? "T" : "F");
+            System.out.println(table.contains(p) ? "T" : "F");
         } else if (s[0].equals("get")) {
             try {
                 System.out.println(table.get(p).toString());

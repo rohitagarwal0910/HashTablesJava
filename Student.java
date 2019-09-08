@@ -1,4 +1,4 @@
-class Student implements Student_{
+class Student implements Student_ {
     String fname, lname, hostel, department, cgpa;
 
     Student(String fname, String lname, String hostel, String department, String cgpa) {
@@ -36,7 +36,7 @@ class Student implements Student_{
 
     @Override
     public String toString() {
-        return fname+" "+lname+" "+hostel+" "+department+" "+cgpa;
+        return fname + " " + lname + " " + hostel + " " + department + " " + cgpa;
     }
-    
+
 }

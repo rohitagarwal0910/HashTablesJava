@@ -1,9 +1,19 @@
-public class Pair<T,K>{
-    T first;
-    K second;
+public class Pair<K extends Comparable<K>, T> implements Comparable<Pair<K, T>> {
+    K first;
+    T second;
 
-    Pair(T t, K k){
-        first = t;
-        second = k;
+    Pair(K k, T t) {
+        first = k;
+        second = t;
+    }
+
+    @Override
+    public int compareTo(Pair<K, T> o) {
+        return (first.compareTo(o.first));
+    }
+
+    @Override
+    public String toString() {
+        return first.toString() + second.toString();
     }
 }

@@ -1,9 +1,14 @@
-insert Ram Singh Nilgiri CS 6.5 
-insert Lallan Singh Nilgiri CE 6.0 
-insert Shyam Singh Satpura EE 8.2 
-update Lallan Singh Nilgiri CE 5.0 
-delete Ram Singh 
-contains Shyam Singh 
-get Shyam Singh 
-address Shyam Singh 
-address Ram Singh
+insert Janardan Bhartiya Nilgiri CS 6.5
+insert Shoukat Ismaail Nilgiri CS 6.5
+insert Jack Nicholson Nilgiri CS 6.5
+insert Kallu Yadav Nilgiri CS 6.5
+insert Klllu Yadav Nilgiri CS 6.5
+insert Kllla Yadav Nilgiri CS 6.5
+insert Tunni Bai Kailash CS 6.5
+insert Tillu Yadav Nilgiri CS 6.5
+insert Tilzu Yadav Nilgiri CS 6.5
+address Kallu Yadav
+update Tunni Bai Kailash CS 6.8
+delete Shoukat Ismaail
+address Kallu Yadav
+get Shoukat Ismaail

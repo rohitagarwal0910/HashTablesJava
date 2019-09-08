@@ -19,5 +19,5 @@ public interface MyHashTable_<K, T> {
 }
 
 class NotFoundException extends Exception {
-    
+
 }

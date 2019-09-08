@@ -1,26 +1,24 @@
-public class BST<T> {
-    Node<T> head = null;
+public class BST<K extends Comparable<K>, T> {
+    Node<K, T> head = null;
 
-    public int add(T obj) {
+    public int add(K key, T obj) {
         int r = 1;
         if (head == null) {
-            head = new Node<T>(obj);
+            head = new Node<K, T>(new Entry<K, T>(key, obj));
             return r;
         }
-        Student s = (Student) obj;
-        Node<T> node = head;
+        Node<K, T> node = head;
         while (true) {
             r++;
-            Student stc = (Student) node.value;
-            if (s.fname().compareTo(stc.fname()) < 0) {
+            if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
-                    node.l = new Node<T>(obj);
+                    node.l = new Node<K, T>(new Entry<K, T>(key, obj));
                     return r;
                 }
                 node = node.l;
-            } else if (s.fname().compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
-                    node.r = new Node<T>(obj);
+                    node.r = new Node<K, T>(new Entry<K, T>(key, obj));
                     return r;
                 }
                 node = node.r;
@@ -28,62 +26,55 @@ public class BST<T> {
         }
     }
 
-    public int update(T obj, Pair<String, String> k) {
+    public int update(K key, T obj) {
         int r = 0;
-        Student s = (Student) obj;
-        Node<T> node = head;
+        Node<K, T> node = head;
         if (head == null)
-            System.out.println("bst update error not found");
+            return -1;
         while (true) {
             r++;
-            Student stc = (Student) node.value;
-            if (k.first.equals(stc.fname()) && k.second.equals(stc.lname())) {
-                node.value = obj;
+            if (key.toString().equals(node.value.key.toString())) {
+                node.value.entity = obj;
                 return r;
-            } else if (k.first.compareTo(stc.fname()) < 0) {
+            } else if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
-                    System.out.println("bst update error not found");
                     return -1;
                 }
                 node = node.l;
-            } else if (k.first.compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
-                    System.out.println("bst update error not found");
                     return -1;
                 }
                 node = node.r;
-            } else if (k.first.equals(stc.fname())) {
+            } else if (key.compareTo(node.value.key) == 0) {
 
             }
         }
     }
 
-    public int delete(Pair<String, String> k) {
+    public int delete(K key) {
         int r = 0;
-        Node<T> node = head;
-        Node<T> pnode = head;
+        Node<K, T> node = head;
+        Node<K, T> pnode = head;
         if (head == null)
-            System.out.println("bst delete error not found");
+            return -1;
         while (true) {
             r++;
-            Student stc = (Student) node.value;
-            if (k.first.equals(stc.fname()) && k.second.equals(stc.lname())) {
+            if (key.toString().equals(node.value.key.toString())) {
                 break;
             }
             pnode = node;
-            if (k.first.compareTo(stc.fname()) < 0) {
+            if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
-                    System.out.println("bst delete error not found");
-                    break;
+                    return -1;
                 }
                 node = node.l;
-            } else if (k.first.compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
-                    System.out.println("bst delete error not found");
-                    break;
+                    return -1;
                 }
                 node = node.r;
-            } else if (k.first.equals(stc.fname())) {
+            } else if (key.compareTo(node.value.key) == 0) {
 
             }
         }
@@ -96,23 +87,31 @@ public class BST<T> {
                 pnode.r = null;
             }
         } else if (node.l == null) {
+            r++;
             node.value = node.r.value;
             node.l = node.r.l;
             node.r = node.r.r;
         } else if (node.r == null) {
+            r++;
             node.value = node.l.value;
             node.r = node.l.r;
             node.l = node.l.l;
         } else {
-            Node<T> n = node.l;
+            r++;
+            Node<K, T> n = node.l;
+            Node<K, T> p = node;
+            if (n.r == null) {
+                node.value = n.value;
+                node.l = n.l;
+            }
             while (true) {
                 if (n.r == null) {
-                    Student st = (Student) n.value;
-                    Pair<String, String> p = new Pair<String, String>(st.fname(), st.lname());
-                    delete(p);
                     node.value = n.value;
+                    p.r = n.l;
                     break;
                 } else {
+                    r++;
+                    p = n;
                     n = n.r;
                 }
             }
@@ -120,76 +119,73 @@ public class BST<T> {
         return r;
     }
 
-    public boolean contains(Pair<String, String> k) {
-        Node<T> node = head;
+    public boolean contains(K key) {
+        Node<K, T> node = head;
         if (head == null)
             return false;
         while (true) {
-            Student stc = (Student) node.value;
-            if (k.first.equals(stc.fname()) && k.second.equals(stc.lname())) {
+            if (key.toString().equals(node.value.key.toString())) {
                 return true;
-            } else if (k.first.compareTo(stc.fname()) < 0) {
+            } else if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
                     return false;
                 }
                 node = node.l;
-            } else if (k.first.compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
                     return false;
                 }
                 node = node.r;
-            } else if (k.first.equals(stc.fname())) {
+            } else if (key.compareTo(node.value.key) == 0) {
 
             }
         }
     }
 
-    public T get(Pair<String, String> k) throws NotFoundException {
-        Node<T> node = head;
+    public T get(K key) throws NotFoundException {
+        Node<K, T> node = head;
         if (head == null)
             throw new NotFoundException();
         while (true) {
-            Student stc = (Student) node.value;
-            if (k.first.equals(stc.fname()) && k.second.equals(stc.lname())) {
-                return node.value;
-            } else if (k.first.compareTo(stc.fname()) < 0) {
+            if (key.toString().equals(node.value.key.toString())) {
+                return node.value.entity;
+            } else if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
                     throw new NotFoundException();
                 }
                 node = node.l;
-            } else if (k.first.compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
                     throw new NotFoundException();
                 }
                 node = node.r;
-            } else if (k.first.equals(stc.fname())) {
+            } else if (key.compareTo(node.value.key) == 0) {
 
             }
         }
     }
 
-    public String address(Pair<String, String> k) throws NotFoundException {
-        Node<T> node = head;
+    public String address(K key) throws NotFoundException {
+        Node<K, T> node = head;
         String steps = "";
         if (head == null)
             throw new NotFoundException();
         while (true) {
-            Student stc = (Student) node.value;
-            if (k.first.equals(stc.fname()) && k.second.equals(stc.lname())) {
+            if (key.toString().equals(node.value.key.toString())) {
                 return steps;
-            } else if (k.first.compareTo(stc.fname()) < 0) {
+            } else if (key.compareTo(node.value.key) < 0) {
                 if (node.l == null) {
                     throw new NotFoundException();
                 }
                 steps = steps + "L";
                 node = node.l;
-            } else if (k.first.compareTo(stc.fname()) > 0) {
+            } else if (key.compareTo(node.value.key) > 0) {
                 if (node.r == null) {
                     throw new NotFoundException();
                 }
                 steps = steps + "R";
                 node = node.r;
-            } else if (k.first.equals(stc.fname())) {
+            } else if (key.compareTo(node.value.key) == 0) {
 
             }
         }

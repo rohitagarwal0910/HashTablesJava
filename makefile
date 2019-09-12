@@ -15,9 +15,9 @@ clean:
 	rm *.class
 
 handin:	
-	@mkdir -p src
-	@cp *.java src/
+	# @mkdir -p src
+	# @cp *.java src/
 	@zip -r 2018EE10494_assignment3.zip src/
 	@base64 2018EE10494_assignment3.zip > 2018EE10494_assignment3.zip.b64
-	@rm -rf src
+	# @rm -rf src
 	#@rm $(ENTRY)_assignment2.zip
